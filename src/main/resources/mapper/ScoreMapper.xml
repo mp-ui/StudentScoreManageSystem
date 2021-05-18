@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.prince.dao.ScoreDao">
+    <resultMap id="resM" type="com.prince.entity.Score">
+        <result property="cCredit" column="c_credit" />
+        <result property="cName" column="c_name" />
+        <result property="cNo" column="c_no" />
+        <result property="cType" column="c_type" />
+        <result property="tName" column="t_name" />
+        <result property="tNo" column="t_no" />
+        <result property="tPosition" column="t_position" />
+        <result property="sName" column="s_name" />
+        <result property="sNo" column="s_no" />
+    </resultMap>
+    <!-- namespace放接口的全类名 -->
+    <select id="selectAll" resultType="com.prince.entity.Score" resultMap="resM">
+        select s.s_no,s_name,c.c_no,c_name ,c_type ,c_credit , score , t.t_no ,t.t_name , t_position
+        from student s
+                 inner join sc
+                            on s.s_no = sc.s_no
+                 inner join course c
+                            on c.c_no = sc.c_no
+                 inner join teacher t
+                            on t.t_no = c.t_no
+        where score >= 0;
+    </select>
+
+    <select id="selectAllBySNo" parameterType="string" resultType="com.prince.entity.Score" resultMap="resM">
+        select s.s_no,s_name,c.c_no,c_name ,c_type ,c_credit , score , t.t_no ,t.t_name , t_position
+        from student s
+                 inner join sc
+                            on s.s_no = sc.s_no
+                 inner join course c
+                            on c.c_no = sc.c_no
+                 inner join teacher t
+                            on t.t_no = c.t_no
+        where score >= 0 and s.s_no = #{sNo};
+    </select>
+</mapper>

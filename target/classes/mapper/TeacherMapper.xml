@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.prince.dao.TeacherMapper">
+  <resultMap id="BaseResultMap" type="com.prince.entity.Teacher">
+    <id column="t_no" jdbcType="VARCHAR" property="tNo" />
+    <result column="t_name" jdbcType="VARCHAR" property="tName" />
+    <result column="t_position" jdbcType="VARCHAR" property="tPosition" />
+    <result column="t_birthday" jdbcType="DATE" property="tBirthday" />
+    <result column="t_sex" jdbcType="INTEGER" property="tSex" />
+    <result column="t_password" jdbcType="VARCHAR" property="tPassword" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    t_no, t_name, t_position, t_birthday, t_sex, t_password
+  </sql>
+  <select id="selectByExample" parameterType="com.prince.entity.TeacherExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teacher
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from teacher
+    where t_no = #{tNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from teacher
+    where t_no = #{tNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.prince.entity.TeacherExample">
+    delete from teacher
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.prince.entity.Teacher">
+    insert into teacher (t_no, t_name, t_position, 
+      t_birthday, t_sex, t_password
+      )
+    values (#{tNo,jdbcType=VARCHAR}, #{tName,jdbcType=VARCHAR}, #{tPosition,jdbcType=VARCHAR}, 
+      #{tBirthday,jdbcType=DATE}, #{tSex,jdbcType=INTEGER}, #{tPassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.prince.entity.Teacher">
+    insert into teacher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tNo != null">
+        t_no,
+      </if>
+      <if test="tName != null">
+        t_name,
+      </if>
+      <if test="tPosition != null">
+        t_position,
+      </if>
+      <if test="tBirthday != null">
+        t_birthday,
+      </if>
+      <if test="tSex != null">
+        t_sex,
+      </if>
+      <if test="tPassword != null">
+        t_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tNo != null">
+        #{tNo,jdbcType=VARCHAR},
+      </if>
+      <if test="tName != null">
+        #{tName,jdbcType=VARCHAR},
+      </if>
+      <if test="tPosition != null">
+        #{tPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="tBirthday != null">
+        #{tBirthday,jdbcType=DATE},
+      </if>
+      <if test="tSex != null">
+        #{tSex,jdbcType=INTEGER},
+      </if>
+      <if test="tPassword != null">
+        #{tPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.prince.entity.TeacherExample" resultType="java.lang.Long">
+    select count(*) from teacher
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update teacher
+    <set>
+      <if test="record.tNo != null">
+        t_no = #{record.tNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tName != null">
+        t_name = #{record.tName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tPosition != null">
+        t_position = #{record.tPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tBirthday != null">
+        t_birthday = #{record.tBirthday,jdbcType=DATE},
+      </if>
+      <if test="record.tSex != null">
+        t_sex = #{record.tSex,jdbcType=INTEGER},
+      </if>
+      <if test="record.tPassword != null">
+        t_password = #{record.tPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update teacher
+    set t_no = #{record.tNo,jdbcType=VARCHAR},
+      t_name = #{record.tName,jdbcType=VARCHAR},
+      t_position = #{record.tPosition,jdbcType=VARCHAR},
+      t_birthday = #{record.tBirthday,jdbcType=DATE},
+      t_sex = #{record.tSex,jdbcType=INTEGER},
+      t_password = #{record.tPassword,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.prince.entity.Teacher">
+    update teacher
+    <set>
+      <if test="tName != null">
+        t_name = #{tName,jdbcType=VARCHAR},
+      </if>
+      <if test="tPosition != null">
+        t_position = #{tPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="tBirthday != null">
+        t_birthday = #{tBirthday,jdbcType=DATE},
+      </if>
+      <if test="tSex != null">
+        t_sex = #{tSex,jdbcType=INTEGER},
+      </if>
+      <if test="tPassword != null">
+        t_password = #{tPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where t_no = #{tNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.prince.entity.Teacher">
+    update teacher
+    set t_name = #{tName,jdbcType=VARCHAR},
+      t_position = #{tPosition,jdbcType=VARCHAR},
+      t_birthday = #{tBirthday,jdbcType=DATE},
+      t_sex = #{tSex,jdbcType=INTEGER},
+      t_password = #{tPassword,jdbcType=VARCHAR}
+    where t_no = #{tNo,jdbcType=VARCHAR}
+  </update>
+</mapper>
