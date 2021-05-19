@@ -6,9 +6,12 @@
 package com.prince.service.impl;
 
 import com.prince.dao.TeacherMapper;
-import com.prince.entity.Teacher;
-import com.prince.entity.TeacherExample;
+import com.prince.entity.*;
+import com.prince.factory.SpringFactory;
+import com.prince.service.CourseService;
+import com.prince.service.SCService;
 import com.prince.service.TeacherService;
+import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -78,5 +81,25 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public int updateByPrimaryKey(Teacher record) {
         return teacherMapper.updateByPrimaryKey(record);
+    }
+
+    public int deleteTeacher(Teacher teacher){
+        ApplicationContext applicationContext = SpringFactory.getInstance();
+        SCService scService = applicationContext.getBean(SCService.class);
+        CourseService courseService = applicationContext.getBean(CourseService.class);
+        //获取该老师对应的所有课程
+        CourseExample courseExample = new CourseExample();
+        courseExample.createCriteria().andTNoEqualTo(teacher.gettNo());
+        List<Course> courses = courseService.selectByExample(courseExample);
+        //删除所有该课程对应的SC
+        for (Course course : courses) {
+            SCExample scExample = new SCExample();
+            scExample.createCriteria().andCNoEqualTo(course.getcNo());
+            scService.deleteByExample(scExample);
+        }
+        //删除课程
+        courseService.deleteByExample(courseExample);
+        //删除老师
+        return deleteByPrimaryKey(teacher.gettNo());
     }
 }

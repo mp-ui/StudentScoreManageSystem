@@ -7,11 +7,11 @@ package com.prince.service.impl;
 
 import com.prince.dao.CourseMapper;
 import com.prince.dao.StudentMapper;
-import com.prince.entity.Course;
-import com.prince.entity.CourseExample;
-import com.prince.entity.Student;
-import com.prince.entity.StudentExample;
+import com.prince.entity.*;
+import com.prince.factory.SpringFactory;
+import com.prince.service.SCService;
 import com.prince.service.StudentService;
+import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -81,5 +81,14 @@ public class StudentServiceImpl implements StudentService {
 
     public void setStudentMapper(StudentMapper studentMapper) {
         this.studentMapper = studentMapper;
+    }
+
+    public int deleteStudent(Student student){
+        ApplicationContext applicationContext = SpringFactory.getInstance();
+        SCService scService = applicationContext.getBean(SCService.class);
+        SCExample scExample = new SCExample();
+        scExample.createCriteria().andSNoEqualTo(student.getsNo());
+        scService.deleteByExample(scExample);
+        return deleteByPrimaryKey(student.getsNo());
     }
 }
