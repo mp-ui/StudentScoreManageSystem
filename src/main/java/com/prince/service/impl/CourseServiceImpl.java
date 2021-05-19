@@ -8,7 +8,11 @@ package com.prince.service.impl;
 import com.prince.dao.CourseMapper;
 import com.prince.entity.Course;
 import com.prince.entity.CourseExample;
+import com.prince.entity.SCExample;
+import com.prince.factory.SpringFactory;
 import com.prince.service.CourseService;
+import com.prince.service.SCService;
+import org.springframework.context.ApplicationContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -78,5 +82,14 @@ public class CourseServiceImpl implements CourseService {
 
     public void setCourseMapper(CourseMapper courseMapper) {
         this.courseMapper = courseMapper;
+    }
+
+    public int deleteCourse(int cNo){
+        ApplicationContext applicationContext = SpringFactory.getInstance();
+        SCService scService = applicationContext.getBean(SCService.class);
+        SCExample scExample = new SCExample();
+        scExample.createCriteria().andCNoEqualTo(cNo);
+        scService.deleteByExample(scExample); //要先删除SC才删除Course
+        return deleteByPrimaryKey(cNo);
     }
 }

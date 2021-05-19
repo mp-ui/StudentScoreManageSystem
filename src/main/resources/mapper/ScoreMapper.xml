@@ -24,7 +24,8 @@
                             on c.c_no = sc.c_no
                  inner join teacher t
                             on t.t_no = c.t_no
-        where score >= 0;
+        where score >= 0
+        order by c.c_no;
     </select>
 
     <select id="selectAllBySNo" parameterType="string" resultType="com.prince.entity.Score" resultMap="resM">
@@ -36,7 +37,8 @@
                             on c.c_no = sc.c_no
                  inner join teacher t
                             on t.t_no = c.t_no
-        where score >= 0 and s.s_no = #{sNo};
+        where score >= 0 and s.s_no = #{sNo}
+        order by c.c_no;
     </select>
 
     <select id="selectAllByCNo" parameterType="int" resultType="com.prince.entity.Score" resultMap="resM">
@@ -48,6 +50,7 @@
                             on c.c_no = sc.c_no
                  inner join teacher t
                             on t.t_no = c.t_no
-        where c.c_no = #{cNO};
+        where c.c_no = #{cNO}
+        order by c.c_no;
     </select>
 </mapper>

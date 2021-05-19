@@ -33,10 +33,6 @@ public class StudentFrame extends BaseFrame {
         this.applicationContext = SpringFactory.getInstance();
         this.student = student;
         setTitle(student.getsName() + "同学，欢迎您！");
-        JPanel left = new JPanel();
-        left.setPreferredSize(new Dimension(200, 0));
-        rootPanel.add(left, BorderLayout.WEST);
-        left.setLayout(new GridLayout(10, 1));
         JLabel jLabel1 = new JLabel("学号：" + student.getsNo());
         JLabel jLabel2 = new JLabel("姓名：" + student.getsName());
         JLabel jLabel3 = new JLabel("性别：" + (student.getsSex() == 0 ? "未知" : student.getsSex() == 1 ? "男" : "女"));
@@ -45,11 +41,6 @@ public class StudentFrame extends BaseFrame {
         left.add(jLabel2);
         left.add(jLabel3);
         left.add(jLabel4);
-        left.setBackground(Color.CYAN);
-        JPanel right = new JPanel(new GridLayout(10, 1));
-        right.setBackground(Color.ORANGE);
-        right.setPreferredSize(new Dimension(200, 0));
-        rootPanel.add(right, BorderLayout.EAST);
         JButton jButton1 = new JButton("选课");
         JButton jButton2 = new JButton("成绩查询");
         right.add(jButton1);
