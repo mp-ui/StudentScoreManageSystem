@@ -24,7 +24,8 @@
                  inner join student s
                  left join sc
                            on sc.s_no = s.s_no and sc.c_no = c.c_no
-        where s.s_no = #{sNo};
+        where s.s_no = #{sNo}
+        order by c.c_no;
     </select>
     <select id="getAllLessonBySNoAndCName" resultMap="resM" resultType="com.prince.entity.Lesson" parameterType="String">
         select s.s_no,s.s_name,c.c_no,c.c_name, c.c_type, c.c_credit , t.t_no ,t.t_name ,t.t_position ,sc.score
@@ -34,7 +35,8 @@
                  inner join student s
                  left join sc
                            on sc.s_no = s.s_no and sc.c_no = c.c_no
-        where s.s_no = #{param1} and c.c_name like '%${param2}%';
+        where s.s_no = #{param1} and c.c_name like '%${param2}%'
+        order by c.c_no;
     </select>
 
 </mapper>
