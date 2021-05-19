@@ -15,4 +15,6 @@ public interface ScoreDao {
 
     List<Score> selectAllBySNo(String sNo);
 
+    List<Score> selectAllByCNo(int cNO);
+
 }

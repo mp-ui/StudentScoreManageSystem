@@ -38,4 +38,16 @@
                             on t.t_no = c.t_no
         where score >= 0 and s.s_no = #{sNo};
     </select>
+
+    <select id="selectAllByCNo" parameterType="int" resultType="com.prince.entity.Score" resultMap="resM">
+        select s.s_no,s_name,c.c_no,c_name ,c_type ,c_credit , score , t.t_no ,t.t_name , t_position
+        from student s
+                 inner join sc
+                            on s.s_no = sc.s_no
+                 inner join course c
+                            on c.c_no = sc.c_no
+                 inner join teacher t
+                            on t.t_no = c.t_no
+        where c.c_no = #{cNO};
+    </select>
 </mapper>
