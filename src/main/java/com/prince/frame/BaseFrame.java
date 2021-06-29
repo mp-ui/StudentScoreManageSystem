@@ -32,12 +32,6 @@ public class BaseFrame extends JFrame {
         jLabel.setVerticalAlignment(SwingConstants.CENTER);
         rootPanel.add(jLabel,BorderLayout.NORTH);
         rootPanel.setBorder(new EmptyBorder(8,8,8,8));
-        JLabel jLabel1 = new JLabel("<html><body><p align=\"center\">作者<br/>软件193<br/>甘洪雨</p></body></html>");
-        jLabel1.setFont(new Font("楷体", Font.BOLD, 40));
-        jLabel1.setForeground(Color.RED);
-        jLabel1.setVerticalAlignment(SwingConstants.CENTER);
-        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-        rootPanel.add(jLabel1,BorderLayout.CENTER);
         //right
         {
             right = new JPanel(new GridLayout(10, 1));
