@@ -26,7 +26,7 @@ public class MainFrame extends JFrame {
 
 
     public MainFrame() {
-        setTitle("学生成绩管理系统(By 软件193 甘洪雨)");
+        setTitle("学生成绩管理系统");
         setSize(400, 300);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
